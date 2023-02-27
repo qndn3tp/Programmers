@@ -1,0 +1,33 @@
+# 테케 11~15 런타임오류
+
+import collections
+def solution(X, Y):
+    x = list(X)
+    y = list(Y)
+    z = x + y
+    dict_x = collections.Counter(x)
+    dict_y = collections.Counter(y)
+    dict = (dict_x - dict_y) + (dict_y - dict_x)
+
+    for k, v in dict.items():
+        if k in dict:
+            for i in range(v):
+                z.remove(k)
+
+    dict_z = collections.Counter(z)
+
+    for k, v in dict_z.items():
+        dict_z[k] //= 2
+
+    res = []
+    for k, v in dict_z.items():
+        for i in range(v):
+            res.append(k)
+    res.sort(reverse=True)
+    
+    if len(res) == 0:
+        return "-1"
+    elif res[0] == "0":
+        return "0"
+    else:
+        return("".join(res))
