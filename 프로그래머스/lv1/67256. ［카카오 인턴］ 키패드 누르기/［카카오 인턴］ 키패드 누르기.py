@@ -2,8 +2,6 @@
 def find_distance(p, k):
     return abs(loc_dic[p][0]-loc_dic[k][0]) + abs(loc_dic[p][1]-loc_dic[k][1])
 
-
-
 def solution(nums, hand):
     # 절대위치 dict 생성 (2차원 배열 이용)
     global loc_dic
