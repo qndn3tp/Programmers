@@ -1,0 +1,28 @@
+def find_lcm(a,b):  # a < b
+    if a > b:
+        c = a
+        a = b
+        b = c
+    ls_a = []
+    ls_b = []
+    j = 0
+    while True:
+        if len(list(set(ls_a) & set(ls_b))) == 1:
+            ans = a*j
+            break
+        else:
+            j += 1
+            ls_a.append(a*j)
+            ls_b.append(b*j)
+    return ans
+
+def solution(arr):
+    arr.sort()
+    for i in range(len(arr)):
+        if len(arr) > 1 :
+            n = find_lcm(arr[0],arr[1])
+            arr = arr[1:]
+            arr[0] = n
+
+    return(arr[0])
+    
