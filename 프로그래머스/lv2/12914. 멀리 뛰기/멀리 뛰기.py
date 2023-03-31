@@ -1,9 +1,12 @@
-import math
 def solution(n):
-    ans = 0
-    for i in range(n//2+1):
-        res = [2]*i
-        while sum(res) != n:
-            res.append(1)
-        ans += math.factorial(len(res))//(math.factorial(res.count(1))*math.factorial(res.count(2)))
-    return ans%1234567
+    if n < 2:
+        return n
+    # 메모이제이션: 앞의 결과를 저장해둠
+    dp = [0 for _ in range(n)] 
+    dp[0] = 1
+    dp[1] = 2
+    # n칸까지의 가짓수: (n-1칸까지의 가짓수 + 1칸) + (n-2칸까지의 가짓수 + 2칸)
+    for i in range(2, n):
+        dp[i] = dp[i-1] + dp[i-2]
+
+    return dp[-1] % 1234567
