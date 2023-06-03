@@ -1,0 +1,9 @@
+SELECT PLAYER_NAME, 
+    CASE WHEN POSITION = "FW" THEN "Forward"
+         WHEN POSITION = "DF" THEN "Defense"
+         WHEN POSITION = "MF" THEN "Mid-field"
+         WHEN POSITION = "GK" THEN "Goal keeper"
+    ELSE "Undefined"
+    END AS POSITION
+FROM KL_PLAYER
+ORDER BY POSITION, PLAYER_NAME
