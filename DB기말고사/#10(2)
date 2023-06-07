@@ -1,0 +1,15 @@
+select  (select stadium_name
+         from kl_stadium st
+         where sc.stadium_id = st.stadium_id) as "stadium_name",
+        sche_date,
+        (select team_name
+         from kl_team t1
+         where sc.hometeam_id = t1.team_id) as "홈팀명(TEAM_NAME)",
+        (select team_name
+         from kl_team t2
+         where sc.awayteam_id = t2.team_id) as "원정팀명(TEAM_NAME)",
+        home_score,
+        away_score
+from kl_schedule sc
+where home_score >= away_score + 3
+order by sche_date 
