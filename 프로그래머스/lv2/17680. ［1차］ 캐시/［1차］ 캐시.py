@@ -9,23 +9,15 @@ def solution(cacheSize, cities):
     for c in cities:
         if cacheSize == 0:
             t += 5
-        elif len(queue) < cacheSize:    # 초기 캐시 채우기.
-            if c in queue:
-                i = queue.index(c)
-                queue.pop(i)
-                queue.append(c)
-                t += 1
-            else: 
-                queue.append(c)
-                t += 5
-        else:                           # 캐시가 다 찼을 때.
+        else:                          
             if c in queue:
                 i = queue.index(c)
                 queue.pop(i)
                 queue.append(c)
                 t += 1
             else:
-                queue.pop(0)
+                if len(queue) >= cacheSize: # 캐시가 다 찼을 때만 pop().
+                    queue.pop(0)
                 queue.append(c)
                 t += 5
     return(t)
