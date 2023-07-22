@@ -1,8 +1,5 @@
 def solution(str1, str2):
     # 1. 입력 문자열로 다중집합의 생성
-    str1.lower()
-    str2.lower()
-
     ls1 = []
     for i in range(len(str1)-1):
         if str1[i].isalpha() and str1[i+1].isalpha():
@@ -13,12 +10,12 @@ def solution(str1, str2):
         if str2[i].isalpha() and str2[i+1].isalpha():
             ls2.append((str2[i] + str2[i+1]).lower())
 
-    # 3. 교집합, 합집합
+    # 2. 교집합, 합집합
     inter, union = 0, 0
     check = []  # 이미 처리한 중복
     for i in ls1:
         if i in ls2:
-            if i not in check:  # 교집합 처리
+            if i not in check:
                 inter += min(ls1.count(i), ls2.count(i))
                 union += max(ls1.count(i), ls2.count(i))
                 check.append(i)
@@ -30,9 +27,6 @@ def solution(str1, str2):
         if i not in check:
             union += 1
 
-    if inter == 0 and union == 0:
-        ans = 1
-    else:
-        ans = inter/union
+    ans = 1 if inter == 0 and union == 0 else inter/union
 
     return int(ans * 65536)
