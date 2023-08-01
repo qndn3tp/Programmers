@@ -12,7 +12,5 @@ def solution(c):
                 l += 1
         if h >= i and l <= i:
             res.append(i)
-    if len(res) == 0:
-        return 0
-    else:
-        return(res[-1])
+
+    return(res[-1])
