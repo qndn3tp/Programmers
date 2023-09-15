@@ -2,7 +2,6 @@ import sys
 from collections import Counter
 
 s = sys.stdin.readline().strip().upper()    # 대문자로 출력하기위해 전처리
-s = " ".join(s).split(" ")                  # 문자열 -> 알파벳 각각을 리스트로
 c = Counter(s)
 
 res = c.most_common(1)[0][1]                # 최빈값으로 내림차순 정렬. 첫번째 원소의 빈도수
