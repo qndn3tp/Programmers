@@ -1,13 +1,14 @@
 import sys
-from collections import Counter
 
-s = sys.stdin.readline().strip().upper()    # 대문자로 출력하기위해 전처리
-c = Counter(s)
+words = sys.stdin.readline().strip().upper()    # 대문자로 출력하기위해 전처리
+unique_words = list(set(words))
 
-res = c.most_common(1)[0][1]                # 최빈값으로 내림차순 정렬. 첫번째 원소의 빈도수
+cnt_list = []
+for x in unique_words:
+    cnt_list.append(words.count(x))
 
-most_used = []                              # 가장 많이 사용된 알파벳 저장
-for i in c:
-    if c[i] == res: 
-        most_used.append(i)
-print(most_used[0] if len(most_used)==1 else "?")
+if cnt_list.count(max(cnt_list)) > 1:
+    print("?")
+else:
+    max_idx = cnt_list.index(max(cnt_list))
+    print(unique_words[max_idx])
