@@ -1,18 +1,18 @@
 import heapq
 
-def solution(scoville, k):
-    # 힙은 push(), pop() 이후 자동 정렬
+def solution(S, K):
     heap = []
-    # 모든 원소를 차례대로 힙에 삽입
-    for i in scoville:
+    for i in S:
         heapq.heappush(heap, i)
 
     cnt = 0
-    # 모든 스코빌이(최솟값) k이상일 때까지
-    while heap[0] < k:
-        try:
-            heapq.heappush(heap, heapq.heappop(heap) + heapq.heappop(heap) * 2)
-        except IndexError:
-            return -1
+    while heap[0] < K and len(heap) >= 2:
+        a = heapq.heappop(heap)
+        b = heapq.heappop(heap)
+        heapq.heappush(heap, a + (b * 2))
         cnt += 1
+    else:
+        if heapq.heappop(heap) < K:
+            return -1
+
     return cnt
