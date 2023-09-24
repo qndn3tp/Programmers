@@ -1,9 +1,8 @@
 import heapq
 
 def solution(S, K):
-    heap = []
-    for i in S:
-        heapq.heappush(heap, i)
+    heap = S
+    heapq.heapify(heap)
 
     cnt = 0
     while heap[0] < K and len(heap) >= 2:
