@@ -1,12 +1,11 @@
 import sys
 
+# 입력
 n = int(sys.stdin.readline())
-score = list(map(int, sys.stdin.readline().split()))
+scores = list(map(int, sys.stdin.readline().split()))
 
-m = max(score)
+# 풀이
+average = (sum(scores) / max(scores) * 100) / n
 
-ans = 0
-for sc in score:
-    ans += sc / m * 100
-
-print(ans/len(score))
+# 출력
+print(average)
