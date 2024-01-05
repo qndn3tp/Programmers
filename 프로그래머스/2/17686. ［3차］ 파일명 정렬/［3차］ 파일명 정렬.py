@@ -1,21 +1,23 @@
 def solution(files):
-    ans = []
-    for file in files:
-        n, t = 0, 0
-        change = True
+    tmp = []
+    head, number, tail = '', '', ''
+    
+    for file in files:       
         for i in range(len(file)):
-            if file[i].isnumeric() and change:
-                n = i
-                change = False
-                continue
-            if file[i].isnumeric() == False and change == False:
-                t = i
+            if file[i].isdigit():     # 숫자가 나오면 그 이전은 무조건 HEAD, 이후는 NUMBER, TAIL로 다시 구분
+                head = file[:i]
+                number = file[i:]
+                
+                for j in range(len(number)):    # NUMBER와 TAIL 구분 (숫자 안나오면 TAIL)
+                    if not number[j].isdigit():
+                        tail = number[j:]
+                        number = number[:j]
+                        break
+                        
+                tmp.append([head, number, tail])
+                head, number, tail = '', '', ''
                 break
-        if t == 0:
-            t = len(file)
-        f = [file[:n], file[n:t], file[t:]]
-        ans.append(f)
 
-    ans = sorted(ans, key = lambda x: (x[0].lower(), int(x[1])))
+    tmp = sorted(tmp, key=lambda x:(x[0].lower(), int(x[1])))
 
-    return [''.join(i) for i in ans]
+    return [''.join(i) for i in tmp]
