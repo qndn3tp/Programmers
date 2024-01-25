@@ -1,0 +1,18 @@
+def solution(s):
+    # 알파벳-인덱스를 딕셔너리로 저장
+    idx = {}
+    for i in s:
+        idx[i] = s.index(i)
+
+    res = set()
+    # input_string를 돌며 알파벳의 인덱스와 사전에 저장된 인덱스 비교
+    for i in range(len(s)):
+        if i - idx[s[i]] > 1:   # 차이가 1이 넘으면 연속되지 않은 외톨이 알파벳임
+            res.add(s[i]) 
+        else:
+            idx[s[i]] = i       # 연속된 알파벳이면 인덱스 업데이트
+            
+    if len(res) == 0:           # 외톨이 알파벳이 없는 경우
+        return "N"
+
+    return "".join(sorted(list(res)))
