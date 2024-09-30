@@ -1,25 +1,17 @@
 import sys
 
-N = int(sys.stdin.readline())
-a = list(map(int, sys.stdin.readline().split()))
-b = list(map(int, sys.stdin.readline().split()))
+def main():
+    N = int(sys.stdin.readline().strip())
+    A = list(map(int, sys.stdin.readline().strip().split()))
+    B = list(map(int, sys.stdin.readline().strip().split()))
 
-dic = {i:0 for i in b}
-for i in b:
-    ans = 1
-    for j in b:
-        if i > j:
-            ans += 1
-    dic[i] = ans
+    A.sort()
 
-a.sort(reverse = True)
+    res = 0
+    for i in range(N):
+        res += A[i] * max(B)
+        B.remove(max(B))
+    print(res)
 
-ans = 0
-for i in b:
-    if b.count(i) == 1:
-        ans += i * a[dic[i]-1]
-    # b에 중복이 있을 때 
-    else:
-        ans += i * a[dic[i]-1]
-        dic[i] += 1
-print(ans)
+if __name__ == "__main__":
+    main()
