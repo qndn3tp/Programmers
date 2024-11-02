@@ -12,7 +12,6 @@ def jump(x, y):
         return True
     elif board[x][y] == 0:
         return False
-        exit()
     else:
         move = board[x][y]
         for dx, dy in direction:
@@ -21,7 +20,7 @@ def jump(x, y):
                 if jump(next_x, next_y):
                     return True
         return False
-        exit()
+
 
 def main():
     if jump(0, 0):
