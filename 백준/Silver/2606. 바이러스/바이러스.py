@@ -1,23 +1,32 @@
 import sys
-N = int(sys.stdin.readline())
-M = int(sys.stdin.readline())
+from collections import deque
+input = sys.stdin.readline
 
-graph = [[] for _ in range(N+1)]
+n = int(input().strip())
+m = int(input().strip())
 
-for i in range(M):
-    a, b = map(int, sys.stdin.readline().split())
-    graph[a].append(b)
-    graph[b].append(a)
+visited = [False] * (n + 1)
 
-visited = [False] * (N+1)
-cnt = -1
+# 그래프 생성
+graph = [[] for _ in range(n+ 1)]
+for _ in range(m):
+    x, y = map(int, input().split())
+    graph[x].append(y)
+    graph[y].append(x)
 
-def DFS(v):
-    visited[v] = True
-    global cnt
-    cnt += 1
-    for i in graph[v]:
-        if not visited[i]:
-            DFS(i)
-DFS(1)
-print(cnt)
+
+def bfs(n):
+    virus = 0
+    q = deque([n])
+    visited[n] = True
+
+    while q:
+        v = q.popleft()
+        for i in graph[v]:
+            if not visited[i]:
+                q.append(i)
+                visited[i] = True
+                virus += 1
+    return virus
+
+print(bfs(1))
