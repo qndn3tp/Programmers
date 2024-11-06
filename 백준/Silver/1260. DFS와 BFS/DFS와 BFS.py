@@ -1,40 +1,48 @@
+# DFS와 BFS / 30m
+
 import sys
 from collections import deque
+input = sys.stdin.readline
 
-# DFS 알고리즘 
-def dfs(matrix, i, visited):
-    visited[i] = True
-    print(i, end=" ")
-    for c in range(len(matrix[i])):    # i 노드와 연결된 노드 체크, 재귀적으로 확인
-        if matrix[i][c] == 1 and not visited[c]:
-            dfs(matrix, c, visited)
+n, m, v = map(int, input().split())
 
-# BFS 알고리즘
-def bfs(matrix, i, visited):
-    queue = deque()    # 큐 생성
-    queue.append(i)    # 노드를 꺼내서 큐에 삽입
-    while queue:
-        value = queue.popleft()    # 가장 먼저 들어온 노드를 꺼냄
-        if not visited[value]:
-            print(value, end=" ")
-            visited[value] = True   
-            for c in range(len(matrix[value])):    # i 노드와 연결된 노드 체크, 큐에 추가
-                if matrix[value][c] == 1 and not visited[c]:
-                    queue.append(c)
+visited_dfs = [False] * (n + 1)
+visited_bfs = visited_dfs.copy()
 
-# 입력
-n, m, v = map(int, sys.stdin.readline().split())
-
-# 연결 리스트, 방문한 노드 리스트 생성
-matrix = [[0] * (n+1) for _ in range(n+1)]
-visited = [False] * (n+1)
-
-# 연결 리스트 완성
+graph = [[] for _ in range(n + 1)]
 for _ in range(m):
-    a, b = map(int, sys.stdin.readline().split())
-    matrix[a][b] = matrix[b][a] = 1
+    x, y = map(int, input().split())
+    graph[x].append(y)
+    graph[y].append(x)
 
-dfs(matrix, v, visited)
-print()
-visited = [False] * (n+1)
-bfs(matrix, v, visited)
+graph = list(map(lambda x: sorted(x), graph))
+
+# dfs
+def dfs(n):
+    visited_dfs[n] = True
+    print(n, end = " ")
+    for i in graph[n]:
+        if not visited_dfs[i]:
+            dfs(i)
+
+# bfs
+def bfs(n):
+    q = deque([n])
+    visited_bfs[n] = True
+
+    while q:
+        v = q.popleft()
+        print(v, end = " ")
+        visited_bfs[v] = True
+        for i in graph[v]:
+            if not visited_bfs[i]:
+                q.append(i)
+                visited_bfs[i] = True
+
+def main():
+    dfs(v)
+    print()
+    bfs(v)
+
+if __name__ == '__main__':
+    main()
