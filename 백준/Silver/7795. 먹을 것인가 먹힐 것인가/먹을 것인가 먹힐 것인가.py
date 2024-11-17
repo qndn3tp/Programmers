@@ -3,15 +3,24 @@ input = sys.stdin.readline
 
 def binarySearch(a, b):
     res = 0
+    memo = {}
+
     for i in range(len(a)):
-        l, r = 0, len(b)-1
-        while l <= r:
-            mid = (l + r )// 2
-            if a[i] <= b[mid]:
-                r = mid - 1
-            elif a[i] > b[mid]:
-                res += mid - l + 1
-                l = mid + 1
+        tmp = 0
+        if a[i] in memo:
+            res += memo[a[i]]
+            continue
+        else:
+            l, r = 0, len(b)-1
+            while l <= r:
+                mid = (l + r )// 2
+                if a[i] <= b[mid]:
+                    r = mid - 1
+                elif a[i] > b[mid]:
+                    tmp += mid -l + 1
+                    l = mid + 1
+            memo[a[i]] = tmp
+            res += tmp
     print(res)
 
 if __name__ == "__main__":
