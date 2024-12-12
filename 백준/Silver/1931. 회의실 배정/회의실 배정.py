@@ -1,21 +1,22 @@
+# 회의실 문제
+# 가장 많이 미팅을 잡으려면 빨리 끝나는 순서대로 
+# 단 정렬은 2개 (빨리 끝나는순, 빨리 시작하는 순)
+
 import sys
 input = sys.stdin.readline
 
-def mettingSchedule():
-    res = []
-    meetings.sort(key=lambda x: (x[1], x[0]))
+n = int(input().rstrip())
+ls = []
+for _ in range(n):
+    ls.append(list(map(int, input().split())))
 
-    for meeting in meetings:
-        if len(res) == 0:
-            res.append(meeting)
-        else:
-            if res[-1][1] <= meeting[0]:
-                res.append(meeting)
-    print(len(res))
+ls.sort(key = lambda x: (x[1], x[0]))
 
-if __name__ == "__main__":
-    n = int(input().rstrip())
-    meetings = []
-    for _ in range(n):
-        meetings.append(list(map(int, input().split())))
-    mettingSchedule()
+res = []
+for i in ls:
+    if len(res) == 0:
+        res.append(i)
+    else:
+        if res[-1][1] <= i[0]:
+            res.append(i)
+print(len(res))
